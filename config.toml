@@ -16,8 +16,7 @@ DefaultContentLanguage = "tw"                   # Theme i18n support
     featuredImageField = "image"
     rssFullContent = true
     # clearReading = true
-    # favicon (small icon displayed on tab)
-    favicon = "img/favicon.jpg"
+    favicon = "/img/favicon.png"
 
     [params.dateFormat]
         published = "Jan 02, 2006"
@@ -26,7 +25,7 @@ DefaultContentLanguage = "tw"                   # Theme i18n support
     [params.sidebar]
         # emoji = "🍥"
         avatar = "img/avatar.jpg"
-        subtitle = ""
+        subtitle = "NTU CSIE B07"
 
     [params.article]
         math = false
@@ -98,6 +97,10 @@ DefaultContentLanguage = "tw"                   # Theme i18n support
 
 [markup]
     # defaultMarkdownHandler = "blackfriday"
+    [markup.goldmark.renderer]
+        # for render HTML inside .md
+        unsafe = true
+        #############
     [markup.highlight]
         anchorLineNos = false
         codeFences = true
