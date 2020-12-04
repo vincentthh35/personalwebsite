@@ -1,0 +1,41 @@
+$defaultTagBackgrounds: #60aa46, #df7988, #0177b8, #ffb900, #6b69d6;
+.container {
+
+    &.extended {
+        @media (min-width: $on-phone) {
+            max-width: 800px;
+
+            .left-sidebar {
+                width: 15%;
+            }
+        }
+
+        @media (min-width: $on-tablet) {
+            max-width: 90vw;
+
+            .left-sidebar {
+                width: 15%;
+            }
+        }
+
+        @media (min-width: $on-desktop) {
+            max-width: 90vw;
+
+            .left-sidebar {
+                width: 15%;
+            }
+
+            .right-sidebar {
+                width: 15%;
+            }
+        }
+
+        @media (min-width: $on-desktop-large) {
+            max-width: 90vw;
+
+            .left-sidebar {
+                width: 15%;
+            }
+        }
+    }
+}
