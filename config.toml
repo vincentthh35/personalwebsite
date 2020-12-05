@@ -1,4 +1,4 @@
-baseurl = "https://vincentthh35.netlify.app/"
+baseurl = "https://vincentthh35.netlify.com/"
 languageCode = "en-us"
 theme = "hugo-theme-stack"
 paginate = 5
