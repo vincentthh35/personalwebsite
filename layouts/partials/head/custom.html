@@ -1,1 +1,4 @@
 <link rel="icon" type="image/png" href="{{ .Site.Params.favicon }}">
+{{ if or .Params.math .Site.Params.math }}
+{{ partial "math.html" . }}
+{{ end }}
