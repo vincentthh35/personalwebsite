@@ -8,7 +8,7 @@ draft: false
 
 ### 如何在 Hugo 網頁上面設定 Favicon
 
-在不同的 theme 上要達成這個目標都有不同的解法，而我使用的 theme 是 [hugo-theme-stack](https://themes.gohugo.io/hugo-theme-stack/)，在我使用的時候的版本是沒有提供直接的 favicon 支援的（在舊的版本好像有支援，但是新的版本拿掉了[^1]），所以如果你的 theme 是有支援的（我說的有支援是指能在 `config.toml` 裡面直接設定），就可以直接跳到這篇文章的最後了；如果沒有的話，我的這篇文章可能可以幫助到你，不過還是要看每一個 theme 它不同的設定。這篇文章分享的是最簡單的設定方法，並且能在 `config.toml` 裡面加上 entry 使得以後更改 favicon 能夠更方便，但沒有保證能跟每一個瀏覽器功能（例如顯示於手機桌面的網頁捷徑）都有最好的相容性。如果需要能支援瀏覽器擴充功能的話，請參考 [Favicon Generator](https://realfavicongenerator.net/)，但是這樣可能就要做更多額外的設定，以後如果有機會使用的話再分享。
+在不同的 theme 上要達成這個目標都有不同的作法，而我使用的 theme 是 [hugo-theme-stack](https://themes.gohugo.io/hugo-theme-stack/)，在我使用的時候的版本是沒有提供直接的 favicon 支援的（在舊的版本好像有支援，但是新的版本拿掉了[^1]），所以如果你的 theme 是有支援的（我說的有支援是指能在 `config.toml` 裡面直接設定），就可以直接跳到這篇文章的最後了；如果沒有的話，我的這篇文章可能可以幫助到你，不過還是要看每一個 theme 它不同的設定。這篇文章分享的是最簡單的設定方法，並且能在 `config.toml` 裡面加上 entry 使得以後更改 favicon 能夠更方便，但沒有保證能跟每一個瀏覽器功能（例如顯示於手機桌面的網頁捷徑）都有最好的相容性。如果需要能支援瀏覽器擴充功能的話，請參考 [Favicon Generator](https://realfavicongenerator.net/)，但是這樣可能就要做更多額外的設定，以後如果有機會使用的話再分享。
 
 <!-- https://gohugo.io/variables/site/ -->
 [^1]: [Add favicon in config.toml - Issue #42](https://github.com/CaiJimmy/hugo-theme-stack/issues/42)
