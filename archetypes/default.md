@@ -8,3 +8,6 @@ draft: true
 author: ""
 
 ---
+
+{{< math >}}
+{{< /math >}}
