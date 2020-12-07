@@ -12,6 +12,9 @@ DefaultContentLanguage = "tw"                   # Theme i18n support
     page = "/:slug/"
 
 [params]
+    # enable math render
+    math = true
+
     mainSections = ["post"]
     featuredImageField = "image"
     rssFullContent = true
