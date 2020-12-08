@@ -30,6 +30,12 @@ DefaultContentLanguage = "tw"                   # Theme i18n support
         avatar = "img/avatar.jpg"
         subtitle = "NTU CSIE B07"
 
+        # these are for the sidebar network-icon
+        github_url = "https://github.com/vincentthh35"
+        mail_address = "vincentthh35@gmail.com"
+        linkedin_url = "https://www.linkedin.com/in/vincentthh/"
+        icon_color = "#7c869c"
+
     [params.article]
         math = false
         [params.article.license]

@@ -18,11 +18,28 @@
                     {{ errorf "Failed loading avatar from %q" . }}
                 {{ end }}
 
-                
+
             </figure>
         {{ end }}
         <h1 class="site-name"><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></h1>
         <h2 class="site-description">{{ .Site.Params.sidebar.subtitle }}</h2>
+        <ul class="network-icon">
+            <li>
+                <a href="mailto:{{ .Site.Params.sidebar.mail_address }}" style="color: {{ .Site.Params.sidebar.icon_color }}">
+                    <i class="fas fa-envelope fa-2x"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{{ .Site.Params.sidebar.github_url }}" style="color: {{ .Site.Params.sidebar.icon_color }}">
+                    <i class="fab fa-github fa-2x"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{{ .Site.Params.sidebar.linkedin_url }}" style="color: {{ .Site.Params.sidebar.icon_color }}">
+                    <i class="fab fa-linkedin fa-2x"></i>
+                </a>
+            </li>
+        </ul>
     </header>
 
     <ol class="menu" id="main-menu">

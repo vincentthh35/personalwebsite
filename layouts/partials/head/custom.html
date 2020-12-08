@@ -1,4 +1,9 @@
 <link rel="icon" type="image/png" href="{{ .Site.Params.favicon }}">
+
+<!-- for in-site math rendering -->
 {{ if or .Params.math .Site.Params.math }}
 {{ partial "math.html" . }}
 {{ end }}
+
+<!-- for font awsome -->
+<script src="https://kit.fontawesome.com/9d5678b5b6.js" crossorigin="anonymous"></script>
