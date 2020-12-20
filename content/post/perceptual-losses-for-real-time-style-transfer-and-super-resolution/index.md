@@ -1,14 +1,14 @@
 ---
 title: "[Paper Notes] Perceptual Losses for Real-Time Style Transfer and Super-Resolution"
-slug: "Perceptual Losses for Real Time Style Transfer and Super Resolution"
+slug: "Perceptual Losses for Real-Time Style Transfer and Super Resolution"
 date: 2020-12-05T20:35:04+08:00
 categories:
--   Paper Notes
+-   Paper-Notes
 draft: false
 author: "謝宗晅"
 ---
 
-（這是第一篇看論文的筆記，希望以後可以有更多篇類似的筆記。以下的內容如有冒犯之處，敬請來信告知）
+（這是第一篇看論文的筆記，希望以後可以有更多篇類似的筆記。以下的內容如有冒犯之處，敬請來信告知。）
 
 ### 概述
 
