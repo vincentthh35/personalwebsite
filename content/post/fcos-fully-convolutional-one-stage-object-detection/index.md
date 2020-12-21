@@ -54,6 +54,11 @@ $$\begin{aligned}L(\{\mathbf p_{x,y}\}, \{\mathbf t_{x,y}\}) &= \frac{1}{N_{\tex
 &+\frac{1}{N_{\text{pos}}}\sum_{x,y}[ c^* _{x,y} > 0 ]\cdot L_{\text{reg}}(\mathbf t_{x,y}, \mathbf t^*_{x,y}) \\
 &+ \frac{1}{N_{\text{pos}}} \sum_{x,y}\text{BCELoss}(\text{centerness}) \end{aligned}$$
 {{< /math >}}
+* $\mathbf p _{x,y}:$ 在 $(x,y)$ 那一點上面的 class 的 one-hot encoding
+* $\mathbf t _{x,y}:$ 在 $(x,y)$ 那一點上面的 predicted bounding box vector（$\mathbf t^*$ 是 ground-truth bounding box）
+* $N_{\text{pos}}:$ positive example 的數量
+* $L_{\text{cls}}:$ RetinaNet[^4] 中的 Focal loss
+* $L_{\text{reg}}:$ IoU loss（對 IoU 的值取 $-\ln$）
 
 #### 3. Evaluation
 
@@ -64,7 +69,7 @@ $$\begin{aligned}L(\{\mathbf p_{x,y}\}, \{\mathbf t_{x,y}\}) &= \frac{1}{N_{\tex
 * ctr. on reg.：把架構中 centerness 的分支和 regression 合併
 * ctr. sampling：只取距離中心點近的 bounding box
 * GIoU：使用 GIoU 取代 IoU
-* Normalization：對 $\mathbb t$ 做 normalize
+* Normalization：對 $\mathbf t$ 做 normalize
 
 詳細的內容請參考他們的 [github](https://github.com/yqyao/FCOS_PLUS)
 
