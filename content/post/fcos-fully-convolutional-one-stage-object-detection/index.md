@@ -9,19 +9,17 @@ author: "謝宗晅"
 
 ---
 
-{{< math >}}
-{{< /math >}}
 （以下的內容如有冒犯之處，敬請來信告知。）
 
 ### 概述
 
-這篇論文[^1]的內容是 FCOS，one-stage object detector。其特別之處在於大部分的 object detector 都是 two-stage 的架構：先找出可能有物品的 proposal 之後再對 proposal 的 anchor box 做 regression；雖然 two-stage 的架構有許多好處，但也有以下的幾個壞處：
+這篇論文[^1]的內容是 FCOS，一個 one-stage object detector。其特別之處在於 anchor-free 的性質。大部分的 object detector 都是 two-stage 的架構：先使用固定比例的 anchor box 找出可能有物品的 proposal 之後再對 proposal 的 anchor box 做 regression；雖然 two-stage 的架構有許多好處，但也有以下的幾個壞處：
 1. model 的表現很仰賴於 anchor box 的比例和數量，所以多了很多麻煩的 hyperparameter
 2. 因為是使用固定的 anchor，所以對於一些形狀不固定的物品就難以被偵測
 3. 為了能夠表現好一點，通常就會將 anchor box 密集的擺在圖片上，但這樣就會使得 positive examples 和 negative examples 的數量失衡（positive 代表有物品，negative 代表是背景）
 4. 在 training 過程，使用 anchor box 會需要進行很多複雜的運算，例如：和 ground-truth 的 anchor box 計算 IoU（Intersection over union）
 
-FCOS 主要有以下的幾個優點：
+然而 FCOS 不只是 one-stage detector，而且還不需要 anchor box。列出以下的幾個優點：
 1. Simple. 因為不需要 anchor 和 proposal 了，因此 hyperparameter 的數量大大降低
 2. Fast. 因為不需要計算與 anchor box 相關的數值（與 ground truth 的 IoU 等等），所以在 training 的速度上是比較快的
 3. State-of-the-art performance. FCOS 表現不只是比 one-stage detector 還要好，也比 two-stage detector 好
@@ -80,7 +78,7 @@ $$\begin{aligned}L(\{\mathbf p_{x,y}\}, \{\mathbf t_{x,y}\}) &= \frac{1}{N_{\tex
         * 因為 centerness $\in[0,1]$，所以可以使用 BCELoss 來作為 loss function
     * 每一個點都能做為 regression 的 target，所以能有較多的 data 來 training
 * Strengths：
-    * 有別於先前比較流行而且表現的不錯的 two-stage detector，FCOS 克服了 one-stage detector 會遇到的困難
+    * 不需使用 anchor box，避免掉 hyperparameter 的麻煩以及複雜度
     * 架構不複雜
 * Weaknesses：
     * 暫時還沒發現弱點 QQ
