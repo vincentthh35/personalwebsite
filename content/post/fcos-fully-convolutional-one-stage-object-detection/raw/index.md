@@ -37,26 +37,26 @@ FCOS 的架構是 based on 一個 backbone CNN（論文中大多數的例子都�
 
 在說明 loss function 之前，要先看看他們怎麼定義一個 bounding box：
 
-{{< math >}}$$\text{ground-truth} = \{B_i\}, \text{where }B_i = \Big(x_0^{(i)}, y_0^{(i)}, x_1^{(i)}, y_1^{(i)}, c^{(i)}\Big) \in \mathbb{R}^4\times \{1,\cdots,C\}$${{< /math >}}
+$$\text{ground-truth} = \{B_i\}, \text{where }B_i = \Big(x_0^{(i)}, y_0^{(i)}, x_1^{(i)}, y_1^{(i)}, c^{(i)}\Big) \in \mathbb{R}^4\times \{1,\cdots,C\}$$
 
-{{< math >}}$(x _0^{(i)}, y _0^{(i)})${{< /math >}} 代表的是左上角的座標，{{< math >}}$(x _1^{(i)}, y _1^{(i)})${{< /math >}} 是右下角的座標，{{< math >}}$c^{(i)}${{< /math >}} 代表該 bounding box 的 class。\
-並且對於圖片中的每一個點 {{< math >}}$(x,y)${{< /math >}}，都指派一個 ground-truth bounding box 給它，然後以一個四維的向量 {{< math >}}$\mathbf t _{x,y}${{< /math >}} 表示：
-{{< math >}}$$\begin{aligned}& l^* = x - x _0^{(i)},& t^* = y - y _0^{(i)} \\ & r^* = x _i^{(i)} - x,& b^* = y _1^{(i)} - y \end{aligned}$${{< /math >}}
+$(x _0^{(i)}, y _0^{(i)})$ 代表的是左上角的座標，$(x _1^{(i)}, y _1^{(i)})$ 是右下角的座標，$c^{(i)}$ 代表該 bounding box 的 class。\
+並且對於圖片中的每一個點 $(x,y)$，都指派一個 ground-truth bounding box 給它，然後以一個四維的向量 $\mathbf t _{x,y}$ 表示：
+$$\begin{aligned}& l^* = x - x _0^{(i)},& t^* = y - y _0^{(i)} \\ & r^* = x _i^{(i)} - x,& b^* = y _1^{(i)} - y \end{aligned}$$
 如果一個點落入了很多個不同的 ground-truth bounding box，則指派最小的一個 bounding box 給它。\
 但是這樣還不夠，因為作者們在實驗了之後，發現這樣會做出太多不準確的 bounding box，所以再定義一個 centerness 來把一些距離中心太遠的 bounding box 的影響力降低：
-{{< math >}}$$\text{centerness} = \sqrt{\frac{\min(l^*, r^*)}{\max(l^*,r^*)} \times \frac{\min(t^*, b^*)}{\max(t^*,b^*)}}$${{< /math >}}
-可以發現到這個值隨著 {{< math >}}$l^*,r^*${{< /math >}} 的值相差越大，則越接近 0（{{< math >}}$t^*,b^*${{< /math >}} 亦同）。這個 centerness 在 training 階段是用來加入 loss function 的（以 Binary Cross Entropy loss 的形式）；在 testing 階段是用來乘以 classification score 的，達到 down weight 不準確 bounding box 預測結果的效果。\
+$$\text{centerness} = \sqrt{\frac{\min(l^*, r^*)}{\max(l^*,r^*)} \times \frac{\min(t^*, b^*)}{\max(t^*,b^*)}}$$
+可以發現到這個值隨著 $l^*,r^*$ 的值相差越大，則越接近 0（$t^*,b^*$ 亦同）。這個 centerness 在 training 階段是用來加入 loss function 的（以 Binary Cross Entropy loss 的形式）；在 testing 階段是用來乘以 classification score 的，達到 down weight 不準確 bounding box 預測結果的效果。\
 Loss function：
 
-{{< math >}}$$\begin{aligned}L(\{\mathbf p_{x,y}\}, \{\mathbf t_{x,y}\}) &= \frac{1}{N_{\text{pos}}}\sum_{x,y}L_{\text{cls}}(\mathbf p_{x,y}, c^*_{x,y})\\
+$$\begin{aligned}L(\{\mathbf p_{x,y}\}, \{\mathbf t_{x,y}\}) &= \frac{1}{N_{\text{pos}}}\sum_{x,y}L_{\text{cls}}(\mathbf p_{x,y}, c^*_{x,y})\\
 &+\frac{1}{N_{\text{pos}}}\sum_{x,y}[ c^* _{x,y} > 0 ]\cdot L_{\text{reg}}(\mathbf t_{x,y}, \mathbf t^*_{x,y}) \\
-&+ \frac{1}{N_{\text{pos}}} \sum_{x,y}\text{BCELoss}(\text{centerness}) \end{aligned}$${{< /math >}}
+&+ \frac{1}{N_{\text{pos}}} \sum_{x,y}\text{BCELoss}(\text{centerness}) \end{aligned}$$
 
-* {{< math >}}$\mathbf p _{x,y}:${{< /math >}} 在 {{< math >}}$(x,y)${{< /math >}} 那一點上面的 class 的 one-hot encoding
-* {{< math >}}$\mathbf t _{x,y}:${{< /math >}} 在 {{< math >}}$(x,y)${{< /math >}} 那一點上面的 predicted bounding box vector（{{< math >}}$\mathbf t^*${{< /math >}} 是 ground-truth bounding box）
-* {{< math >}}$N_{\text{pos}}:${{< /math >}} positive example 的數量
-* {{< math >}}$L_{\text{cls}}:${{< /math >}} RetinaNet[^4] 中的 Focal loss
-* {{< math >}}$L_{\text{reg}}:${{< /math >}} IoU loss（對 IoU 的值取 {{< math >}}$-\ln${{< /math >}}）
+* $\mathbf p _{x,y}:$ 在 $(x,y)$ 那一點上面的 class 的 one-hot encoding
+* $\mathbf t _{x,y}:$ 在 $(x,y)$ 那一點上面的 predicted bounding box vector（$\mathbf t^*$ 是 ground-truth bounding box）
+* $N_{\text{pos}}:$ positive example 的數量
+* $L_{\text{cls}}:$ RetinaNet[^4] 中的 Focal loss
+* $L_{\text{reg}}:$ IoU loss（對 IoU 的值取 $-\ln$）
 
 #### 3. Evaluation
 
@@ -67,7 +67,7 @@ Loss function：
 * ctr. on reg.：把架構中 centerness 的分支和 regression 合併
 * ctr. sampling：只取距離中心點近的 bounding box
 * GIoU：使用 GIoU 取代 IoU
-* Normalization：對 {{< math >}}$\mathbf t${{< /math >}} 做 normalize
+* Normalization：對 $\mathbf t$ 做 normalize
 
 詳細的內容請參考他們的 [github](https://github.com/yqyao/FCOS_PLUS)
 
@@ -75,7 +75,7 @@ Loss function：
 
 * Insights：
     * Centerness 有效的避免掉偏移中心點太遠的 bounding box
-        * 因為 centerness {{< math >}}$\in[0,1]${{< /math >}}，所以可以使用 BCELoss 來作為 loss function
+        * 因為 centerness $\in[0,1]$，所以可以使用 BCELoss 來作為 loss function
     * 每一個點都能做為 regression 的 target，所以能有較多的 data 來 training
 * Strengths：
     * 不需使用 anchor box，避免掉 hyperparameter 的麻煩以及複雜度
