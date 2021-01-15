@@ -1,2 +1,4 @@
 resources/
 public/
+scripts/*.md
+scripts/*/*.md
