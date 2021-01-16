@@ -62,11 +62,11 @@ draft: false
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-    {{- {{< math >}}$description := partialCached "data/description" . .RelPermalink -}}
-    <meta name='description' content='{{ ${{< /math >}}description }}'>
+    {{- $description := partialCached "data/description" . .RelPermalink -}}
+    <meta name='description' content='{{ $description }}'>
 
-    {{- {{< math >}}$title := partialCached "data/title" . .RelPermalink -}}
-    <title>{{ ${{< /math >}}title }}</title>
+    {{- $title := partialCached "data/title" . .RelPermalink -}}
+    <title>{{ $title }}</title>
 
     <link rel='canonical' href='{{ .Permalink }}'>
 
