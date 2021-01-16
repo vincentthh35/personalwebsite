@@ -8,17 +8,23 @@
     <header class="site-info">
         {{ with .Site.Params.sidebar.avatar }}
             <figure class="site-avatar">
-                {{ $avatar := resources.Get (.) }}
-
-                {{ if $avatar }}
-                    {{ $avatarResized := $avatar.Resize "300x300" }}
-                    <img src="{{ $avatarResized.RelPermalink }}" width="{{ $avatarResized.Width }}"
-                        height="{{ $avatarResized.Height }}" class="site-logo" loading="lazy" alt="Avatar">
+                {{ if not .local }}
+                    <img src="{{ .src }}" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
                 {{ else }}
-                    {{ errorf "Failed loading avatar from %q" . }}
+                    {{ $avatar := resources.Get (.src) }}
+
+                    {{ if $avatar }}
+                        {{ $avatarResized := $avatar.Resize "300x" }}
+                        <img src="{{ $avatarResized.RelPermalink }}" width="{{ $avatarResized.Width }}"
+                            height="{{ $avatarResized.Height }}" class="site-logo" loading="lazy" alt="Avatar">
+                    {{ else }}
+                        {{ errorf "Failed loading avatar from %q" . }}
+                    {{ end }}
                 {{ end }}
 
-
+                {{ with $.Site.Params.sidebar.emoji }}
+                    <span class="emoji">{{ . }}</span>
+                {{ end }}
             </figure>
         {{ end }}
         <h1 class="site-name"><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></h1>
@@ -48,13 +54,21 @@
         {{ $active := or (eq $currentPage.Title .Name) (or ($currentPage.HasMenuCurrent "main" .) ($currentPage.IsMenuCurrent "main" .)) }}
 
         <li {{ if $active }} class='current' {{ end }}>
-            <a href='{{ .URL | absLangURL }}'>
+            <a href='{{ .URL | relURL }}'>
                 {{ if .Pre }}
                     {{ partial "helper/icon" .Pre }}
                 {{ end }}
                 <span>{{- .Name -}}</span>
             </a>
         </li>
+        {{ end }}
+
+        {{ if (default false .Site.Params.colorScheme.toggle) }}
+            <li id="dark-mode-toggle">
+                {{ partial "helper/icon" "toggle-left" }}
+                {{ partial "helper/icon" "toggle-right" }}
+                <span>Dark Mode{{ T "darkMode" }}</span>
+            </li>
         {{ end }}
     </ol>
 </aside>
