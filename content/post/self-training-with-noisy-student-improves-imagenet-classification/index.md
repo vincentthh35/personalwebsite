@@ -4,6 +4,7 @@ slug: "Self-training with Noisy Student improves ImageNet classification"
 date: 2021-02-28T22:29:17+08:00
 categories:
 -   Paper-Notes
+-   aMMAI
 draft: false
 author: "謝宗晅"
 ---
