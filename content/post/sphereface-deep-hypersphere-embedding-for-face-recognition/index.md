@@ -14,7 +14,7 @@ author: "謝宗晅"
 
 ### 概述
 
-這篇論文要解決的問題是一個　well-studied 的問題：人臉辨識。以往的人臉辨識問題大多都是使用 softmax loss 當作 loss function，而為了 performance 的提升，也有其他改造 softmax loss 的方式（請參考論文 related work 中的 deep face recognition 區塊）。本篇論文觀察到了臉部特徵的 feature space 的分布和角度有強烈的關聯性，因此就提出了將 softmax loss 和角度結合的「A-softmax loss」，能在 open-set 的臉部辨識問題有很好的表現。
+這篇論文要解決的問題是人臉辨識的問題。以往的人臉辨識問題大多都是使用 softmax loss 當作 loss function，而為了 performance 的提升，也有其他改造 softmax loss 的方式（請參考論文 related work 中的 deep face recognition 區塊）。本篇論文觀察到了臉部特徵的 feature space 的分布和角度有強烈的關聯性，因此就提出了將 softmax loss 和角度結合的「A-softmax loss」，能在 open-set 的臉部辨識問題有很好的表現。
 
 ### 前情提要
 
@@ -45,7 +45,7 @@ p_2=\frac{\exp(\text{output score 2})}{\exp(\text{output score 1}) + \exp(\text{
 
 上方的圖是作者做的模擬實驗，訓練一個學習 2D feature 的 model 之後的結果。不同顏色的點代表不同 class 的 feature，將 feature 畫在 2D 平面上，以及將那些點對應到角度上的圖。最左邊的兩張是使用原始的 softmax 來訓練的；中間的兩張圖是將角度加入 softmax 之後訓練的；而最右邊兩張是再對 softmax 加入更強的限制所學到的 feature。可以發現到 face feature 其實是和角度是有關係的，隨著對 softmax loss 的改進，那些 feature 都變的越來越有代表性。
 
-以下的討論都會假設 {{< math >}}$\mathbf W_i${{< /math >}} 是 CNN 的最後一層（也就是 softmax 的上一層）的第 {{< math >}}$i${{< /math >}} 個 weights 以及 {{< math >}}$b_i${{< /math >}} 是相對應的 bias。
+以下的討論都會假設 {{< math >}}$\mathbf W_i${{< /math >}} 是 CNN 的最後一層（也就是 softmax 的上一層）的第 {{< math >}}$i${{< /math >}} 個 weights 以及 {{< math >}}$b_i${{< /math >}} 是相對應的 bias，並且 {{< math >}}$\mathbf x${{< /math >}} 是 {{< math >}}$\mathbf W_i${{< /math >}} 那一層的輸入。
 
 第一個改進是將原本的 {{< math >}}$\mathbf W_i^T\mathbf x + b_i${{< /math >}} 用另一個方式表示：（{{< math >}}$\theta_i${{< /math >}} 是 {{< math >}}$\mathbf W_i${{< /math >}} 和 {{< math >}}$\mathbf x${{< /math >}} 的夾角）
 {{< math >}}$$\|\mathbf W_i^T\|\|\mathbf x\|\cos (\theta_i) + b_i$${{< /math >}}
@@ -59,11 +59,17 @@ p_2=\frac{\exp(\text{output score 2})}{\exp(\text{output score 1}) + \exp(\text{
 {{< math >}}$$\begin{aligned}\|\mathbf x\|\cos(m\theta_1) > \|\mathbf x\|\cos(\theta_2) \implies \mathbf x \in \text{class 1} \\ \|\mathbf x\|\cos(\theta_1) < \|\mathbf x\|\cos(m\theta_2) \implies \mathbf x \in \text{class 2} \end{aligned}$${{< /math >}}
 上面這個式子可以想像成在 {{< math >}}$\mathbf W_1, \mathbf W_2${{< /math >}} 之間切 {{< math >}}$m+1${{< /math >}} 等份，如果位在最接近 {{< math >}}$\mathbf W_1${{< /math >}} 的那一份，就是屬於 class 1（反之亦然），所以中間會有 {{< math >}}$m-1${{< /math >}} 份是不屬於 class 1 或是 class 2 的。
 
+而因為 {{< math >}}$\cos(\theta)${{< /math >}} 函數只有在 {{< math >}}$\theta \in [0,\pi]${{< /math >}} 是嚴格遞減的，因此有將它推廣到更廣義的形式：
+{{< math >}}$$\phi(\theta) = (-1)^k\cos(m\theta) - 2k \text{, for }\theta \in [\frac{k\pi}{m}, \frac{(k+1)\pi}{m}]$${{< /math >}}
+
+再把最初始的 softmax loss 定義加上來，最終的 loss function 形式就變成：（{{< math >}}$\theta_{y_i, i}${{< /math >}}代表預測結果和 ground truth 之間的差別）
+{{< math >}}$$L = \frac1N\sum_{i}-\log(\frac{e^{\|\mathbf x\|\phi(\theta_{y_i, i})}}{e^{\|\mathbf x\|\phi(\theta_{y_i, i})} + \sum_{j\neq y_i}e^{\|\mathbf x\|\cos(\theta_{j, i})}})$${{< /math >}}
+
 #### Properties of A-Softmax Loss
 
-論文中有關於「最小 inter-class 距離**大於**最小 intra-class 的距離」的證明，因為數學篇幅有點長所以就不在這邊說明，可以參考[這篇文章](https://zhuanlan.zhihu.com/p/76539587)，裡面有精美的圖示和詳細的說明。
+論文中有關於「最小 inter-class 距離**大於**最小 intra-class 的距離」的證明，因為數學篇幅有點長所以就不在這邊說明，可以參考[這篇文章](https://zhuanlan.zhihu.com/p/76539587)，或是參考原論文，裡面有精美的圖示和詳細的說明。
 
-作者在論文中的統整結果是 {{< math >}}$m=4${{< /math >}} 就能確保上面的那個性質，並且實務上也有很好的結果。
+直接講結果的話，作者在論文中的統整結果是 {{< math >}}$m=4${{< /math >}} 就能確保上面的那個性質，並且實務上也有很好的結果。
 
 ### 結果
 
