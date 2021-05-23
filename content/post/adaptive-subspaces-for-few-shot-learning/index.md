@@ -85,9 +85,11 @@ Few-shot learning 的 training loop 所用的基本單位是叫做 episode。在
 * $d_c(\mathbf q)$：用來算 $\mathbf q$ 和第 $c$ 個 class 所張開的 subspace 的 similarity 函數
 
 在第 5 行做的事情是算出每一個 class 的 centroid：
+{{<math>}}
 $$\bm \mu_c = \frac 1K \sum _{\mathbf x_i \in \mathbf X_c}f _{\Theta}(\mathbf x _i)$$
+{{</math>}}
 在第 6 行做的事情是把 semi-supervised 的資料也加入訓練，來得到調整過後的 centroid。先假設不知道 label 的圖取出的 feature 所代表的意義是正確的，然後就把相近的點當作是同一類的，取得新的 centroid。這邊有一個細節是新增一個 zero-mean 的 fake class，目的是要讓 noise 的 feature 不要被放進去一起算 centroid（這邊的假設是 noise 學到的 feature 是 zero-mean 的）。\
-第 7 行是把 $\tilde{\mathbf X}_c$ 的 centroid 都減掉，也就是只留下以 centroid 為中心的 offset。\
+第 7 行是把 {{<math>}}$\tilde{\mathbf X}_c${{</math>}} 的 centroid 都減掉，也就是只留下以 centroid 為中心的 offset。\
 第 8, 9 行應該都蠻直觀的，第 11 行的 $d_c(\cdot)$ 定義如下：
 {{<math>}}
 $$\begin{aligned}&d_c(\mathbf q) = -\|(\mathbf I - \mathbf M_c)(f_\Theta(\mathbf q) - \bm\mu _c)\|^2 \\
