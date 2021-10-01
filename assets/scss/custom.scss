@@ -1,8 +1,10 @@
+@import 'breakpoints.scss';
+
 $defaultTagBackgrounds: #60aa46, #df7988, #0177b8, #ffb900, #6b69d6;
 .container {
 
     &.extended {
-        @media (min-width: $on-phone) {
+        @media (min-width: map-get($breakpoints, "sm")) {
             max-width: 800px;
 
             .left-sidebar {
@@ -10,7 +12,7 @@ $defaultTagBackgrounds: #60aa46, #df7988, #0177b8, #ffb900, #6b69d6;
             }
         }
 
-        @media (min-width: $on-tablet) {
+        @media (min-width: map-get($breakpoints, 'md')) {
             max-width: 90vw;
 
             .left-sidebar {
@@ -18,7 +20,7 @@ $defaultTagBackgrounds: #60aa46, #df7988, #0177b8, #ffb900, #6b69d6;
             }
         }
 
-        @media (min-width: $on-desktop) {
+        @media (min-width: map-get($breakpoints, 'lg')) {
             max-width: 90vw;
 
             .left-sidebar {
@@ -30,10 +32,13 @@ $defaultTagBackgrounds: #60aa46, #df7988, #0177b8, #ffb900, #6b69d6;
             }
         }
 
-        @media (min-width: $on-desktop-large) {
+        @media (min-width: map-get($breakpoints, 'xl')) {
             max-width: 90vw;
 
             .left-sidebar {
+                width: 12%;
+            }
+            .right-sidebar {
                 width: 15%;
             }
         }
@@ -60,6 +65,6 @@ ul.network-icon {
 }
 
 .network-icon li {
-    font-size: 12px;
+    font-size: 14px;
     margin-right: 10px;
 }
