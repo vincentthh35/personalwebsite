@@ -5,6 +5,7 @@ date: 2021-03-09T11:41:18+08:00
 categories:
 -   Sharing
 draft: false
+image: "light.jpg"
 author: "謝宗晅"
 ---
 

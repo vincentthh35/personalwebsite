@@ -5,6 +5,7 @@ date: 2021-01-17T21:55:43+08:00
 categories:
 -   Hugo
 draft: false
+image: "cubes.jpg"
 author: "謝宗晅"
 ---
 
