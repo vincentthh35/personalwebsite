@@ -5,7 +5,7 @@ slug: "graduate-interview"
 date: 2021-10-08T22:01:13+08:00
 categories:
 -   Sharing
-draft: false
+draft: true
 # image: "my image"
 author: "謝宗晅"
 ---
