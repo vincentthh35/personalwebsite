@@ -37,6 +37,7 @@ DefaultContentLanguage = "tw"                   # Theme i18n support
         github_url = "https://github.com/vincentthh35"
         mail_address = "vincentthh35@gmail.com"
         linkedin_url = "https://www.linkedin.com/in/vincentthh/"
+        cv_url = "/files/CV_latex.pdf"
         icon_color = "#7c869c"
         # emoji = "🍥"
         [params.sidebar.avatar]
