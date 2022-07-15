@@ -41,12 +41,12 @@ author: "謝宗晅"
 $$\mathcal I_m = \Big( E(\mathcal D, \mathbf W) - E(\mathcal D, \mathbf W \mid w_m = 0) \Big)^2$$
 以上的定義其實就是把 $w_m$ 拔掉之後的 error 拿來和本來的 error 比較。但如果我們的 network 總共有 $M$ 個參數的話，就要對 $M$ 個參數都算一次，這對於比較大的 network 是完全不可行的，因此要透過近似來取得以上式子的值。
 {{<math>}}
-$$\begin{aligned} \mathcal I_m^{(2)}(\mathbf W) &= \Big( g_mw_m - \frac12 w_m\mathbf H_m\mathbf W  \Big)^2 \end{aligned}$$
+$$\begin{aligned} \mathcal I_m^{(2)}(\mathbf W) &= \Big( g_mw_m - \frac12 w_m\mathbf H_m\mathbf W_m  \Big)^2 \end{aligned}$$
 {{</math>}}
 > 這邊我要特別註明一下，論文中 $\frac12$ 前面是負號，但我想了很久之後還是覺得是加號才對，如果我寫錯的話歡迎留言指正。
 
 
-> 更新：感謝 robbin242 的指正，的確應該是負號沒錯，推導方式就如留言區的圖片
+> 更新：感謝 robbin242 的指正，的確應該是負號沒錯，而且展開後的 $W$ 應該要是 $W_m$，推導方式就如留言區的圖片
 
 其中 $g_m = \frac{\partial E}{\partial w_m}$，就是 gradient；$H_{i,j} = \frac{\partial ^2 E}{\partial w_i \partial w_j}$，$\mathbf H_m$ 就是第 $m$ 個 row，$\mathbf H$ 就是 Hessian 矩陣。作者將這個近似的方法在後面的實驗裡面稱為 Taylor SO（second order）。但是對於一個很大參數量的 network，它的 Hessian 所需的計算量也非常可觀，因此就有了更簡略的近似：
 $$\mathcal I^{(1)}_m(\mathbf W) = \Big( g_mw_m \Big)^2$$
