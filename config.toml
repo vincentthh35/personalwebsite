@@ -4,7 +4,7 @@ theme = "hugo-theme-stack"
 paginate = 5
 title = "謝宗晅"
 disqusShortname = "vincentthh35"            # Change it to your Disqus shortname before using
-DefaultContentLanguage = "tw"                   # Theme i18n support
+DefaultContentLanguage = "en"                   # Theme i18n support
 # ignoreErrors = ["error-remote-getjson"]
 
 [permalinks]
@@ -31,14 +31,10 @@ DefaultContentLanguage = "tw"                   # Theme i18n support
         lastUpdated = "Jan 02, 2006 15:04 MST"
 
     [params.sidebar]
-        subtitle = "NTU CSIE B07"
+        subtitle_1 = "NTU CSIE B07"
+        subtitle_2 = "Trader @ Kronos"
+        compact = false
 
-        # these are for the sidebar network-icon
-        github_url = "https://github.com/vincentthh35"
-        mail_address = "vincentthh35@gmail.com"
-        linkedin_url = "https://www.linkedin.com/in/vincentthh/"
-        cv_url = "/files/CV_latex.pdf"
-        icon_color = "#7c869c"
         # emoji = "🍥"
         [params.sidebar.avatar]
             local = true
@@ -99,7 +95,43 @@ DefaultContentLanguage = "tw"                   # Theme i18n support
         name = "Archives"
         url = "archives"
         weight = -70
-        pre = "archives"
+        [menu.main.params]
+            icon = "archives"
+            newTab = false
+        
+    [[menu.social]]
+        identifier = "github"
+        name = "github"
+        url = "https://github.com/vincentthh35"
+        weight = -30
+        [menu.social.params]
+            icon = "brand-github"
+            newTab = true
+    [[menu.social]]
+        identifier = "linkedin"
+        name = "linkedin"
+        url = "https://www.linkedin.com/in/vincentthh/"
+        weight = -20
+        [menu.social.params]
+            icon = "brand-linkedin"
+            newTab = true
+    [[menu.social]]
+        identifier = "cv"
+        name = "cv"
+        url = "/files/CV_latex.pdf"
+        weight = -10
+        [menu.social.params]
+            icon = "file-text"
+            newTab = true
+    [[menu.social]]
+        identifier = "email"
+        name = "email"
+        url = "mailto:vincentthh35@gmail.com"
+        weight = -5
+        [menu.social.params]
+            icon = "mail"
+            newTab = false
+
 
 [related]
     includeNewer = true
