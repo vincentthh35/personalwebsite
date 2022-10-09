@@ -1,22 +1,20 @@
-@import 'breakpoints.scss';
+// @import 'breakpoints.scss';
 
 $defaultTagBackgrounds: #60aa46, #df7988, #0177b8, #ffb900, #6b69d6;
 .container {
+    margin-left: auto;
+    margin-right: auto;
 
     &.extended {
         @media (min-width: map-get($breakpoints, "sm")) {
-            max-width: 800px;
-
-            .left-sidebar {
-                width: 15%;
-            }
+            max-width: 90vw;
         }
 
         @media (min-width: map-get($breakpoints, 'md')) {
             max-width: 90vw;
 
             .left-sidebar {
-                width: 15%;
+                width: 22%;
             }
         }
 
@@ -52,18 +50,30 @@ code.has-jax {
     font-size: 100%;
 }
 
-ul.network-icon {
-    display: inline-flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: left;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+@mixin respond-below($breakpoint) {
+    @if not map-has-key($breakpoints, $breakpoint) {
+        @warn "'#{$breakpoint}' is not a valid breakpoint";
+    } @else {
+        @media (max-width: (map-get($breakpoints, $breakpoint) - 1)) {
+            @content;
+        }
+    }
 }
 
-.network-icon li {
-    font-size: 13px;
-    margin-top: 1.7vh;
-    margin-right: 10px;
+.site-meta, .site-avatar, .social-menu, .site-name, .site-description {
+    @include respond-below(md) {
+        margin: auto !important;
+    }
+}
+.site-name, .site-description {
+    @include respond-below(md) {
+        text-align: center;
+    }
+}
+
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+    width: 25px;
+    height: 1.3px;
 }
