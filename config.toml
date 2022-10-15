@@ -6,6 +6,7 @@ title = "謝宗晅"
 disqusShortname = "vincentthh35"            # Change it to your Disqus shortname before using
 DefaultContentLanguage = "en"                   # Theme i18n support
 # ignoreErrors = ["error-remote-getjson"]
+googleAnalytics = "G-Y5NYJ89B2V"
 
 [permalinks]
     post = "/p/:slug/"
