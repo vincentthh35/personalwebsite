@@ -76,3 +76,8 @@ code.has-jax {
     width: 25px;
     height: 1.3px;
 }
+
+pre > code {
+    font-family: "Hack", monospace;
+    font-size: smaller;
+}
