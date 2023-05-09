@@ -5,6 +5,12 @@ description: "有關我和這個部落格"
 dontDisplayDate: true
 date: "2020-10-20"
 author: "謝宗晅"
+menu:
+    main:
+        name: About
+        weight: -90
+        params:
+            icon: user
 ---
 
 ### 簡單介紹一下自己

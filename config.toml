@@ -79,27 +79,6 @@ googleAnalytics = "G-Y5NYJ89B2V"
             src = ""
 
 [menu]
-    [[menu.main]]
-        identifier = "home"
-        name = "Home"
-        url = "/"
-        weight = -100
-        pre = "home"
-    [[menu.main]]
-        identifier = "about"
-        name = "About"
-        url = "about"
-        weight = -90
-        pre = "user"
-    [[menu.main]]
-        identifier = "archives"
-        name = "Archives"
-        url = "archives"
-        weight = -70
-        [menu.main.params]
-            icon = "archives"
-            newTab = false
-        
     [[menu.social]]
         identifier = "github"
         name = "github"
