@@ -1,0 +1,3 @@
+# redirect .csie.org to .vincentthh35.com
+http://vincentthh35.csie.org/*      https://www.vincentthh35.com/:splat     301!
+https://vincentthh35.csie.org/*     https://www.vincentthh35.com/:splat     301!
