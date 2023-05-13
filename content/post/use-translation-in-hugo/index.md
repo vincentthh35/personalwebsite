@@ -12,7 +12,7 @@ author: "謝宗晅"
 
 ### 消失的字
 
-在架設這個 blog 的時候一直有一個困擾我的地方，是在 theme 某一次更新之後我發現 theme 裡面某些字會不見（例如），然後找了一下我自己 theme 的 code 才發現那些消失的字都是被以下的 template 語法包起來：
+在架設這個 blog 的時候一直有一個困擾我的地方，是在 theme 某一次更新之後我發現 theme 裡面某些字會不見（例如左下角的 Dark Mode），然後找了一下我自己 theme 的 code 才發現那些消失的字都是被以下的 template 語法包起來：
 ```
 {{ T "disappearing_words" }}
 ```
