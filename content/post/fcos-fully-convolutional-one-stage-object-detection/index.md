@@ -4,7 +4,7 @@ slug: "Fcos Fully Convolutional One-Stage Object Detection"
 date: 2020-12-20T15:39:02+08:00
 categories:
 -   Paper-Notes
-draft: false
+draft: true
 author: "謝宗晅"
 
 ---

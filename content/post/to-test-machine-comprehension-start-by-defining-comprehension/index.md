@@ -5,8 +5,7 @@ date: 2021-05-01T00:32:46+08:00
 categories:
 -   Paper-Notes
 -   aMMAI
-draft: false
-author: "謝宗晅"
+draft: true
 ---
 
 論文網址：\
