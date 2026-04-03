@@ -33,7 +33,7 @@ googleAnalytics = "G-Y5NYJ89B2V"
 
     [params.sidebar]
         subtitle_1 = "NTU CSIE B07"
-        subtitle_2 = "Ex Trader @ Kronos"
+        subtitle_2 = "Alpha Researcher @ Vici"
         compact = false
 
         # emoji = "🍥"
